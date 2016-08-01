@@ -1508,6 +1508,7 @@
                 method: options.method || request.method.GET,
                 url: options.url,
                 headers: typeof options.headers === 'object' ? options.headers : {},
+                callbackExtras: options.extras,
                 callbackSuccess: options.success && typeof options.success === 'function' ? options.success : undefined,
                 callbackError: options.error && typeof options.error === 'function' ? options.error : undefined,
                 responseType: options.responseType,
@@ -1796,6 +1797,14 @@
 
             }.bind(this);
 
+            if (params.callbackExtras) {
+                if (params.callbackExtras.requestCallback) {
+                    params.callbackExtras.requestCallback(httpReq);
+                }
+                if (params.callbackExtras.progressCallback) {
+                    httpReq.upload.onprogress = params.callbackExtras.progressCallback;
+                }
+            }
 
             if (params.data) {
                 httpReq.send(params.data);
@@ -1803,6 +1812,7 @@
                 //IE fix, send nothing (not null or undefined)
                 httpReq.send();
             }
+
         };
 
         return request;
@@ -2048,7 +2058,7 @@
 
                 params = this._addAuthorization(params);
 
-                return corbel.utils.pick(params, ['url', 'dataType', 'contentType', 'method', 'headers', 'data', 'dataFilter', 'responseType', 'withCredentials', 'success', 'error']);
+                return corbel.utils.pick(params, ['url', 'dataType', 'contentType', 'method', 'headers', 'data', 'dataFilter', 'responseType', 'withCredentials', 'success', 'error', 'extras']);
             },
 
             /**

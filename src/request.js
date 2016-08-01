@@ -220,7 +220,7 @@
       throw new Error('undefined:url');
     }
 
-    if (typeof(options.url) !== 'string') {
+    if (typeof (options.url) !== 'string') {
       throw new Error('invalid:url', options.url);
     }
 
@@ -230,6 +230,7 @@
       method: options.method || request.method.GET,
       url: options.url,
       headers: typeof options.headers === 'object' ? options.headers : {},
+      callbackExtras: options.extras,
       callbackSuccess: options.success && typeof options.success === 'function' ? options.success : undefined,
       callbackError: options.error && typeof options.error === 'function' ? options.error : undefined,
       responseType: options.responseType,
@@ -430,7 +431,7 @@
    * @return {Boolean}
    */
   request.isCrossDomain = function (url) {
-    if (url && typeof(url) === 'string' && url.indexOf('http') !== -1) {
+    if (url && typeof (url) === 'string' && url.indexOf('http') !== -1) {
       return true;
     } else {
       return false;
@@ -518,6 +519,14 @@
 
     }.bind(this);
 
+    if (params.callbackExtras) {
+      if (params.callbackExtras.requestCallback) {
+        params.callbackExtras.requestCallback(httpReq);
+      }
+      if (params.callbackExtras.progressCallback) {
+        httpReq.upload.onprogress = params.callbackExtras.progressCallback;
+      }
+    }
 
     if (params.data) {
       httpReq.send(params.data);
@@ -525,6 +534,7 @@
       //IE fix, send nothing (not null or undefined)
       httpReq.send();
     }
+
   };
 
   return request;
