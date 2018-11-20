@@ -23,12 +23,12 @@ describe('JWT module', function() {
     var secret = 'secret',
       claims = {
         'iss': CLIENT_ID,
-        'aud': 'http://iam.bqws.io',
+        'aud': 'http://iam.corbel.io',
         'exp': 1391535,
         'scope': SCOPES,
         'version': '1.0.0'
       };
-    var EXPECTED_ASSERTION = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDTElFTlRfSUQiLCJhdWQiOiJodHRwOi8vaWFtLmJxd3MuaW8iLCJleHAiOjEzOTE1MzUsInNjb3BlIjoic2NvcGUxIHNjb3BlMiIsInZlcnNpb24iOiIxLjAuMCJ9._TCKYb3gbsuznfwA1gopY4mSYr7VHmvFQGxW1CJJjHQ';
+    var EXPECTED_ASSERTION = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJDTElFTlRfSUQiLCJhdWQiOiJodHRwOi8vaWFtLmNvcmJlbC5pbyIsImV4cCI6MTM5MTUzNSwic2NvcGUiOiJzY29wZTEgc2NvcGUyIiwidmVyc2lvbiI6IjEuMC4wIn0.Lkr2LKGv-qyPX6wW30rIB7xHU2svwIYeCx22aegtrJE';
 
     // without alg
     var assertion = corbel.jwt.generate(claims, secret);
@@ -48,12 +48,12 @@ describe('JWT module', function() {
     var secret = 'secret',
       claims = {
         iss: 'clientId',
-        aud: 'http://iam.bqws.io',
+        aud: 'http://iam.corbel.io',
         exp: 12345,
         scope: 'scope:example1 scope:example2'
       };
 
-    var EXPECTED = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjbGllbnRJZCIsImF1ZCI6Imh0dHA6Ly9pYW0uYnF3cy5pbyIsImV4cCI6MTIzNDUsInNjb3BlIjoic2NvcGU6ZXhhbXBsZTEgc2NvcGU6ZXhhbXBsZTIifQ.18g9YO_KgWtW1s7HSo87mIjG02u8Pe880tdLbg_JxC4';
+    var EXPECTED = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjbGllbnRJZCIsImF1ZCI6Imh0dHA6Ly9pYW0uY29yYmVsLmlvIiwiZXhwIjoxMjM0NSwic2NvcGUiOiJzY29wZTpleGFtcGxlMSBzY29wZTpleGFtcGxlMiJ9.I8wVQbmqoX5LlXHrRzbp5mzaUMBqu6zLhhAvyyNJI6g';
 
     var assertion = corbel.jwt.generate(claims, secret);
     expect(assertion).to.be.equal(EXPECTED);
@@ -68,7 +68,7 @@ describe('JWT module', function() {
     expect(jwtDecoded.alg).to.be.equal('HS256');
 
     expect(jwtDecoded.iss).to.be.equal('clientId');
-    expect(jwtDecoded.aud).to.be.equal('http://iam.bqws.io');
+    expect(jwtDecoded.aud).to.be.equal('http://iam.corbel.io');
     expect(jwtDecoded.exp).to.be.equal(12345);
     expect(jwtDecoded.scope).to.be.equal('scope:example1 scope:example2');
   });

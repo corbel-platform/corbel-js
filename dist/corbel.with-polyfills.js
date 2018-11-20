@@ -3493,7 +3493,7 @@
         };
 
         Iam.GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
-        Iam.AUD = 'http://iam.bqws.io';
+        Iam.AUD = 'http://iam.corbel.io';
         Iam.IAM_TOKEN = 'iamToken';
         Iam.IAM_TOKEN_SCOPES = 'iamScopes';
         Iam.IAM_DOMAIN = 'domain';
